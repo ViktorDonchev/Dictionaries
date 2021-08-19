@@ -81,7 +81,6 @@ updated_damages = updated_damages(damages)
 def dict_data_on_hurricanes(names, months, years, max_sustained_winds, areas_affected, damages, deaths):
     hurricanes = {}
     nums = len(names)
-    print(nums)
 
     for num in range(nums):
         hurricanes[names[num]] = {"Name": names[num], "Month": months[num], "Year": years[num], "Max Sustained Winds": max_sustained_winds[num], "Areas Affected": areas_affected[num], "Damage": damages[num], "Deaths": deaths[num]}
@@ -91,18 +90,52 @@ def dict_data_on_hurricanes(names, months, years, max_sustained_winds, areas_aff
 # Create and view the hurricanes dictionary
 
 hurricanes_dictionary = dict_data_on_hurricanes(names, months, years, max_sustained_winds, areas_affected, updated_damages, deaths)
-pprint.pprint(hurricanes_dictionary)
+#pprint.pprint(hurricanes_dictionary)
 # 3
 # Organizing by Year
+def data_by_year(hurricanes):
+    new_dict = {}
+    for value in hurricanes.values():
+        new_dict[value.get("Year", None)] = value
+
+    return new_dict
+    
 
 # create a new dictionary of hurricanes with year and key
-
+hurricanes_by_year = data_by_year(hurricanes_dictionary)
+#pprint.pprint(hurricanes_by_year)
 
 # 4
 # Counting Damaged Areas
+def counting_area(hurricanes):
+    newList = []
+    newListNums = []
+
+    for val1 in hurricanes:
+        for val2 in val1:
+            if val2 not in newList:
+                newList.append(val2)
+
+    for kek in range(len(newList)):
+        newListNums.append(0)
+
+    #print(newListNums)
+
+    new_dict = {key : value for key, value in zip(newList, newListNums)}
+    #pprint.pprint(new_dict)
+
+    for val1 in hurricanes:
+        for val in val1:
+            new_dict.keys() == val
+            new_dict[val] += 1
+
+    pprint.pprint(new_dict)
+
+
 
 # create dictionary of areas to store the number of hurricanes involved in
-
+hurricanes_areas_affected = counting_area(areas_affected)
+#print(hurricanes_areas_affected)
 
 # 5 
 # Calculating Maximum Hurricane Count
