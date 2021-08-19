@@ -129,36 +129,100 @@ def counting_area(hurricanes):
             new_dict.keys() == val
             new_dict[val] += 1
 
-    pprint.pprint(new_dict)
-
-
+    return new_dict
 
 # create dictionary of areas to store the number of hurricanes involved in
 hurricanes_areas_affected = counting_area(areas_affected)
-#print(hurricanes_areas_affected)
+#pprint.pprint(hurricanes_areas_affected)
 
 # 5 
 # Calculating Maximum Hurricane Count
+def max_hurricane_count(hurricanes):
+    emptyList = []
+
+    for values in hurricanes.values():
+        emptyList.append(values)
+    
+    max_value = max(emptyList)
+    name = ""
+
+    for key, values in hurricanes.items():
+        if values == max_value:
+            name = key
+    
+    #print(f"Area with largest amount of hurricanes: {name}, value: {max_value}")
+
+
 
 # find most frequently affected area and the number of hurricanes involved in
-
+max_hurricane_count(hurricanes_areas_affected)
 
 # 6
 # Calculating the Deadliest Hurricane
+def deadliest_hurricane(names, deaths):
+    deadlyDict = {key:value for key, value in zip(names, deaths)}
+    
+    max_deaths = max(deaths)
+    name = ""
+
+    for key, values in deadlyDict.items():
+        if values == max_deaths:
+            name = key
+
+    #print(f"Deadliest Hurricane: {name}")
 
 # find highest mortality hurricane and the number of deaths
+deadliest_hurricane(names, deaths)
 
 # 7
 # Rating Hurricanes by Mortality
+def mortality_rating(names, deaths):
+    mortalityDict = {key:value for key, value in zip(names, deaths)}
 
+    mortality_hurricane = {
+        0: [],
+        1: [],
+        2: [],
+        3: [],
+        4: []
+    }
+
+    newDict = {}
+    for key, value in mortalityDict.items():
+        if(value==0):
+            mortality_hurricane[0].append(key)
+        elif(value>0 and value<=100):
+            mortality_hurricane[1].append(key)
+        elif(value>100 and value<=500):
+            mortality_hurricane[2].append(key)
+        elif(value>500 and value<=1000):
+            mortality_hurricane[3].append(key)
+        else:
+            mortality_hurricane[4].append(key)
+
+    #pprint.pprint(mortality_hurricane)
+    
+mortality_rating(names, deaths)
 
 # categorize hurricanes in new dictionary with mortality severity as key
-
+#done
 
 # 8 Calculating Hurricane Maximum Damage
+def highest_damage(names, damages):
+    deadlyDict = {key:value for key, value in zip(names, damages)}
+    
+    damages_clean = [value for value in damages if value != 'Damages not recorded']
+    max_damage = max(damages_clean)
+    name = ""
+
+    for key, values in deadlyDict.items():
+        if values == max_damage:
+            name = key
+    
+    #print(f"Highest damage {name}")
 
 # find highest damage inducing hurricane and its total cost
-
+highest_damage(names, updated_damages)
 
 # 9
 # Rating Hurricanes by Damage
@@ -169,3 +233,33 @@ damage_scale = {0: 0,
                 4: 50000000000}
   
 # categorize hurricanes in new dictionary with damage severity as key
+def cost(names, damages):
+    mortalityDict = {key:value for key, value in zip(names, damages)}
+
+    mortality_hurricane = {
+        0: [],
+        1: [],
+        2: [],
+        3: [],
+        4: []
+    }
+
+    newDict = {}
+
+    for key, value in mortalityDict.items():
+        if value != 'Damages not recorded':
+            val = float(value)
+            if(val==0):
+                mortality_hurricane[0].append(key)
+            elif(val>0 and val<=100000000):
+                mortality_hurricane[1].append(key)
+            elif(val>100 and val<=1000000000):
+                mortality_hurricane[2].append(key)
+            elif(val>500 and val<=10000000000):
+                mortality_hurricane[3].append(key)
+            else:
+                mortality_hurricane[4].append(key)
+
+    pprint.pprint(mortality_hurricane)
+    
+cost(names, updated_damages)
